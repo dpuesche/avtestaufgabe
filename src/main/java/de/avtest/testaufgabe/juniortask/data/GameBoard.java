@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
 public class GameBoard {
 
   // Board size
-  private final int size = 3;
+  private final int size = 4;
 
   // Board data storage
   private List<GameMark> board;
