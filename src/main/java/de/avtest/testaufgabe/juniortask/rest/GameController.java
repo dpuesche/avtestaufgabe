@@ -125,7 +125,7 @@ public class GameController {
     }
 
     // Prevent the player from picking a position that is not empty
-    if (gameBoard.getSpace(x, y) != GameMark.NONE){
+    if (gameBoard.getSpace(x, y).isMarked()){
       return ResponseEntity.status(HttpStatus.FORBIDDEN).body("This space has already been claimed!");
     }
 
