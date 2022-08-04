@@ -182,30 +182,15 @@ public class GameController {
       return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You are not allowed to play. It is the bots turn!");
     }
 
-    // ##### TASK 4 - Let the player make their move ###############################################################
-    // =============================================================================================================
-    // Here, you need to code the logic that allows a player to make a move.
-    // You can make use of the methods offered by the gameBoard object.
-    // =============================================================================================================
+    // Prevent the player from picking a position that is not empty
+    if (gameBoard.getSpace(x, y) != GameMark.NONE){
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("This space has already been claimed!");
+    }
 
-    // We've previously ensured that the player is allowed to play and the game has not ended yet.
-    // The method gameBoard.getSpace( x, y ) will return the content of a space - either GameMark.NONE (free),
-    // GameMark.CROSS (belongs to the bot) or GameMark.CIRCLE (belongs to the player).
-    // You can compare two values with
-    // a == b       gets true if a is equals b
-    // a != b       gets true if a is not equals b
-    //
-    // Once all the checks have passed, you can finally update the game board by calling
-    // gameBoard.setSpace( x, y, GameMark.CIRCLE ).
-    // [ The code to check if the space is free goes here ]
-
-    // If the space is not free, run the code in the line below by removing the //
-    //return ResponseEntity.status(HttpStatus.FORBIDDEN).body("This space has already been claimed!");
-
-    // [ The code to update the game board goes here ]
+    // Set player's mark
+    gameBoard.setSpace( x, y, GameMark.CIRCLE );
 
     // Saving the game board and output it to the player
-
     return this.statusOutput(gameBoard);
   }
 
