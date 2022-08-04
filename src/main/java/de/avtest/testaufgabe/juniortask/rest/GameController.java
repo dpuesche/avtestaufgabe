@@ -139,18 +139,9 @@ public class GameController {
    * @return
    */
   protected boolean isAllowedToPlay(GameBoard gameBoard, GamePlayer player) {
-    // ##### TASK 6 - No cheating! #################################################################################
-    // =============================================================================================================
-    // We don't want the player to be able to cheat. They should only be able to make a move if it is their turn.
-    // Neither the player nor the bot are allowed to make a move twice in a row. So, you need to check which player
-    // made the *last* move to find out if the player is allowed to act.
-    // =============================================================================================================
-
-    // The method gameBoard.getLastPlayer() will return either GamePlayer.ROBOT (the last move was made by the bot),
-    // GamePlayer.HUMAN (the last move was made by the player) or null (this is the first move).
-    // Inside `player` you have the player which wants to play now.
-    // If he is allowed to play, you have to return true, otherwise you have to return false.
-
+    if(gameBoard.getLastPlayer() == player){
+      return false;
+    }
     return true;
   }
 
@@ -213,7 +204,7 @@ public class GameController {
 
     // Prevent the player from playing if it is not his turn
     if (!this.isAllowedToPlay(gameBoard, GamePlayer.ROBOT)) {
-      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You are not allowed to play. It is the bots turn!");
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You are not allowed to play. It is the humans turn!");
     }
 
     var freeSpaces = new LinkedList<Map<String, Integer>>();
