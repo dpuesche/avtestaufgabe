@@ -3,7 +3,9 @@ package de.avtest.testaufgabe.juniortask.data;
 import de.avtest.testaufgabe.juniortask.data.enums.GameBoardSliceType;
 import de.avtest.testaufgabe.juniortask.data.enums.GameMark;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 public class GameBoardSlice {
@@ -69,5 +71,19 @@ public class GameBoardSlice {
    */
   public List<GameMark> getSpaces() {
     return IntStream.range(0, this.size).mapToObj(this::getSpace).toList();
+  }
+
+  /**
+   * Checks if every position of the slice contains the same player mark type
+   *
+   * @return true, if all player marks of the slice are the same
+   */
+  public boolean containsSameMarks(){
+    List<GameMark> markList = getSpaces();
+    Set<GameMark> markSet = new HashSet<GameMark>(markList);
+    if(!markList.contains(GameMark.NONE) && markSet.size() == 1){
+      return true;
+    }
+    return false;
   }
 }

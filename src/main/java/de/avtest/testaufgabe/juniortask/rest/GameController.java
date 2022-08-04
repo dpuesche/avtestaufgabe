@@ -56,62 +56,17 @@ public class GameController {
    * @return
    */
   protected boolean someoneHasWon(GameBoard gameBoard) {
-    // ##### TASK 7 - Make this check more efficient ###############################################################
-    // =============================================================================================================
-    // This function checks if the game has already won. It does this by checking for every possible winning
-    // condition. For example, the first block below checks if the first row contains identical marks that are not
-    // GameMark.NONE.
-    // As you can see, this function is exorbitantly long and highly redundant. Your task is to find a way to
-    // shorten this function without compromising its functionality. Note that by "shorten", we don't mean to just
-    // remove spaces and line breaks ;)
-    // =============================================================================================================
-    if ( // Check the first row
-      gameBoard.getRow(0).getSpace(0) == gameBoard.getRow(0).getSpace(1) &&
-        gameBoard.getRow(0).getSpace(0) == gameBoard.getRow(0).getSpace(2) &&
-        gameBoard.getRow(0).getSpace(0) != GameMark.NONE
-    ) return true;
+    // Check diagonals
+    if(gameBoard.getMainDiagonal().containsSameMarks() || gameBoard.getAntiDiagonal().containsSameMarks()){
+      return true;
+    }
 
-    if ( // Check the second row
-      gameBoard.getRow(1).getSpace(0) == gameBoard.getRow(1).getSpace(1) &&
-        gameBoard.getRow(1).getSpace(0) == gameBoard.getRow(1).getSpace(2) &&
-        gameBoard.getRow(1).getSpace(0) != GameMark.NONE
-    ) return true;
-
-    if ( // Check the third row
-      gameBoard.getRow(2).getSpace(0) == gameBoard.getRow(2).getSpace(1) &&
-        gameBoard.getRow(2).getSpace(0) == gameBoard.getRow(2).getSpace(2) &&
-        gameBoard.getRow(2).getSpace(0) != GameMark.NONE
-    ) return true;
-
-    if ( // Check the first column
-      gameBoard.getColumn(0).getSpace(0) == gameBoard.getColumn(0).getSpace(1) &&
-        gameBoard.getColumn(0).getSpace(0) == gameBoard.getColumn(0).getSpace(2) &&
-        gameBoard.getColumn(0).getSpace(0) != GameMark.NONE
-    ) return true;
-
-    if ( // Check the second column
-      gameBoard.getColumn(1).getSpace(0) == gameBoard.getColumn(1).getSpace(1) &&
-        gameBoard.getColumn(1).getSpace(0) == gameBoard.getColumn(1).getSpace(2) &&
-        gameBoard.getColumn(1).getSpace(0) != GameMark.NONE
-    ) return true;
-
-    if ( // Check the third column
-      gameBoard.getColumn(2).getSpace(0) == gameBoard.getColumn(2).getSpace(1) &&
-        gameBoard.getColumn(2).getSpace(0) == gameBoard.getColumn(2).getSpace(2) &&
-        gameBoard.getColumn(2).getSpace(0) != GameMark.NONE
-    ) return true;
-
-    if ( // Check the main diagonal
-      gameBoard.getMainDiagonal().getSpace(0) == gameBoard.getMainDiagonal().getSpace(1) &&
-        gameBoard.getMainDiagonal().getSpace(0) == gameBoard.getMainDiagonal().getSpace(2) &&
-        gameBoard.getMainDiagonal().getSpace(0) != GameMark.NONE
-    ) return true;
-
-    if ( // Check the anti-diagonal
-      gameBoard.getAntiDiagonal().getSpace(0) == gameBoard.getAntiDiagonal().getSpace(1) &&
-        gameBoard.getAntiDiagonal().getSpace(0) == gameBoard.getAntiDiagonal().getSpace(2) &&
-        gameBoard.getAntiDiagonal().getSpace(0) != GameMark.NONE
-    ) return true;
+    // Check rows and columns
+    for(int i = 0; i < gameBoard.getSize(); i++){
+      if(gameBoard.getColumns().get(i).containsSameMarks() || gameBoard.getRows().get(i).containsSameMarks()){
+        return true;
+      }
+    }
 
     return false;
   }
