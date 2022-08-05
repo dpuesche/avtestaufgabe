@@ -1,5 +1,7 @@
 package de.avtest.testaufgabe.juniortask.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import de.avtest.testaufgabe.juniortask.data.enums.GameBoardSliceType;
 import de.avtest.testaufgabe.juniortask.data.enums.GameMark;
 import de.avtest.testaufgabe.juniortask.data.enums.GamePlayer;
@@ -10,12 +12,15 @@ import java.util.stream.IntStream;
 
 public class GameBoard {
 
+  @JsonProperty("size")
   // Board size
   private final int size = 4;
 
+  @JsonProperty("board")
   // Board data storage
   private List<GameMark> board;
 
+  @JsonProperty("lastPlayer")
   private GamePlayer lastPlayer;
 
   public GameBoard() {
@@ -39,6 +44,7 @@ public class GameBoard {
    * @param y Y position
    * @return
    */
+  @JsonIgnore
   public GameMark getSpace(int x, int y) {
     this.validatePosition(x, y);
     return this.board.get(y * size + x);
@@ -71,6 +77,7 @@ public class GameBoard {
    * @return
    * @throws Exception
    */
+  @JsonIgnore
   public List<GameBoardSlice> getRows() {
     var temp = new ArrayList<GameBoardSlice>(this.size);
     for (int i = 0; i < this.size; i++) {
@@ -93,6 +100,7 @@ public class GameBoard {
    * @return
    * @throws Exception
    */
+  @JsonIgnore
   public List<GameBoardSlice> getColumns() {
     var temp = new ArrayList<GameBoardSlice>(this.size);
     for (int i = 0; i < this.size; i++) {
@@ -105,6 +113,7 @@ public class GameBoard {
    * Returns the main diagonal
    * @return
    */
+  @JsonIgnore
   public GameBoardSlice getMainDiagonal() {
     return new GameBoardSlice(this, GameBoardSliceType.MAIN_DIAGONAL, this.size);
   }
@@ -113,6 +122,7 @@ public class GameBoard {
    * Returns the anti diagonal
    * @return
    */
+  @JsonIgnore
   public GameBoardSlice getAntiDiagonal() {
     return new GameBoardSlice(this, GameBoardSliceType.ANTI_DIAGONAL, this.size);
   }
